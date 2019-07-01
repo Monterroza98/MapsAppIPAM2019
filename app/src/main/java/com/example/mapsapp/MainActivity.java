@@ -1,6 +1,7 @@
 package com.example.mapsapp;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.support.v4.app.FragmentActivity;
@@ -10,6 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -32,6 +34,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
     private Spinner cmbTiposMapa;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +50,15 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
 
         cmbTiposMapa = (Spinner)findViewById(R.id.tipoMapa);
         cmbTiposMapa .setAdapter(adaptador);
+
+        Button btnPreferencias=findViewById(R.id.btnConfiguracion);
+        btnPreferencias.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, Preferencias.class);
+                startActivity(intent);
+            }
+        });
 
         cmbTiposMapa.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -82,7 +94,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         mMap.setMinZoomPreference(10);
-        mMap.setMinZoomPreference(18);
+        mMap.setMaxZoomPreference(18);
         LatLng ues = new LatLng(13.970546,-89.574738);
         mMap.addMarker(new MarkerOptions().position(ues).title("Universidad").draggable(true));
         CameraPosition moverues = new CameraPosition.Builder()

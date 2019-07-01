@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">MapsApp</string>
+    <string name="brujula">Brujula</string>
+    <string name="zoom">Zoom</string>
+    <string name="centro">Centrar</string>
+    <string name="opcion1">Preferencias del Mapa</string>
+    <string name="opcion2">Preferencias del Circulo</string>
+    <string name="tamano">Tamaño</string>
+    <string name="colLinea">Color Línea</string>
+    <string name="colFondo">Color Fondo</string>
+    <string name="btnGuardar">GUARDAR</string>
+
+
+
 </resources>

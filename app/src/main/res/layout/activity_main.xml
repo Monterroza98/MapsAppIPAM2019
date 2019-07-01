@@ -6,12 +6,16 @@
     android:orientation="vertical">
     tools:context=".MainActivity">
 
+    <Button
+        android:id="@+id/btnConfiguracion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Preferencias" />
+
     <Spinner
         android:id="@+id/tipoMapa"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        />
-
+        android:layout_height="48dp" />
 
     <fragment
         xmlns:android="http://schemas.android.com/apk/res/android"

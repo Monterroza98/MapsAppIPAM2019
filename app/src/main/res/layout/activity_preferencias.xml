@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+<AbsoluteLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Preferencias"
+    >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_x="122dp"
+        android:layout_y="26dp"
+        android:layout_gravity="center"
+        android:text="@string/opcion1"
+        android:textSize="18dp"></TextView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_x="30dp"
+        android:layout_y="170dp"
+        android:text="@string/brujula"
+        android:textSize="18dp"></TextView>
+
+    <Switch
+        android:id="@+id/switchBrujula"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="300dp"
+        android:layout_y="170dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:layout_x="30dp"
+        android:layout_y="240dp"
+        android:text="@string/centro"
+        android:textSize="18dp">
+
+    </TextView>
+
+    <Switch
+        android:id="@+id/switchCentrar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="300dp"
+        android:layout_y="240dp"
+        android:textSize="18dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="30dp"
+        android:layout_y="100dp"
+        android:text="@string/zoom"
+        android:textSize="18dp"></TextView>
+
+    <Switch
+        android:id="@+id/switchZoom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="300dp"
+        android:layout_y="100dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_x="118dp"
+        android:layout_y="305dp"
+        android:text="@string/opcion2"
+        android:textSize="18dp"></TextView>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_x="30dp"
+        android:layout_y="375dp"
+        android:text="@string/tamano"
+        android:textSize="18dp"></TextView>
+
+    <Spinner
+        android:layout_width="106dp"
+        android:layout_height="wrap_content"
+        android:layout_x="280dp"
+        android:layout_y="375dp"
+        android:id="@+id/columTamanio"
+        >
+    </Spinner>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_x="30dp"
+        android:layout_y="435dp"
+        android:text="@string/colLinea"
+        android:textSize="18dp"></TextView>
+
+    <Spinner
+        android:id="@+id/columLinea"
+        android:layout_width="106dp"
+        android:layout_height="wrap_content"
+        android:layout_x="280dp"
+        android:layout_y="435dp"></Spinner>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_x="30dp"
+        android:layout_y="500dp"
+        android:text="@string/colFondo"
+        android:textSize="18dp"></TextView>
+
+    <Spinner
+        android:id="@+id/columFondo"
+        android:layout_width="106dp"
+        android:layout_height="wrap_content"
+        android:layout_x="280dp"
+        android:layout_y="500dp"></Spinner>
+
+    <Button
+        android:layout_width="178dp"
+        android:layout_height="wrap_content"
+        android:layout_x="125dp"
+        android:layout_y="575dp"
+        android:id="@+id/btnGuardar"
+        android:text="@string/btnGuardar"
+        />
+
+</AbsoluteLayout>
+</ScrollView>

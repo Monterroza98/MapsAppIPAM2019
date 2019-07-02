@@ -2,12 +2,15 @@ package com.example.mapsapp;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -33,6 +36,8 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
             new String[]{"Normal","Satelite","Hibrido","Terreno"};
     private Spinner cmbTiposMapa;
 
+    private SharedPreferences preferencias;
+
 
 
     @Override
@@ -43,10 +48,13 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
+        preferencias = PreferenceManager.getDefaultSharedPreferences(this);
         ArrayAdapter<String> adaptador =
                 new ArrayAdapter<String>(this,
                         android.R.layout.select_dialog_singlechoice, tiposmapa);
+
+        //borrar
+        obtenerColores();
 
         cmbTiposMapa = (Spinner)findViewById(R.id.tipoMapa);
         cmbTiposMapa .setAdapter(adaptador);
@@ -161,8 +169,16 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.getUiSettings().setZoomControlsEnabled(false);
         mMap.getUiSettings().setRotateGesturesEnabled(false);
         mMap.getUiSettings().setScrollGesturesEnabled(true);
-        mMap.getUiSettings().setZoomControlsEnabled(true);
-        mMap.getUiSettings().setCompassEnabled(false);
+        mMap.getUiSettings().setZoomControlsEnabled(preferencias.getBoolean("zoom", true));
+        mMap.getUiSettings().setCompassEnabled(preferencias.getBoolean("brujula", true));
         mMap.getUiSettings().setMapToolbarEnabled(false);
+    }
+
+    public void obtenerColores(){
+        int radio = preferencias.getInt("radio", 50);
+        int colorL = preferencias.getInt("colorL", Color.RED);
+        int colorF = preferencias.getInt("colorF", Color.RED);
+
+        Log.d("STATE", radio+"");
     }
 }

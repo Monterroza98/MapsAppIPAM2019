@@ -24,7 +24,7 @@ public class Preferencias extends Activity implements View.OnClickListener{
     Boolean zoom = false;
     Spinner sRadio, sColorL, sColorF;
     Switch spZoom;
-    int radio, colorL, colorF;
+    int radio, colorL, colorF, idRadio, idColorL, idColorF;
     SharedPreferences sharedPreferences;
 
     Button btnConf, btnGuardar;
@@ -61,11 +61,6 @@ public class Preferencias extends Activity implements View.OnClickListener{
         sColorL.setAdapter(adaptadorColores);
         sColorF.setAdapter(adaptadorColores);
 
-
-        radio=Integer.parseInt(sRadio.getSelectedItem().toString());
-        colorL=asignarColor(sColorL.getSelectedItemPosition());
-        colorF=asignarColor(sColorF.getSelectedItemPosition());
-
         cargarPreferencias();
 
         btnGuardar.setOnClickListener(new View.OnClickListener() {
@@ -74,7 +69,7 @@ public class Preferencias extends Activity implements View.OnClickListener{
                 Context context= getApplicationContext();
                 Intent main = new Intent(Preferencias.this, MainActivity.class)
                         .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
+                //veriicar el checd
                 if(spBrujula.isChecked()){
                     brujula=true;
                 }
@@ -84,7 +79,13 @@ public class Preferencias extends Activity implements View.OnClickListener{
                 if(spZoom.isChecked()){
                     zoom=true;
                 }
-                guardarPreferencias(brujula,centrar,zoom,radio,colorL, colorF);
+                radio=Integer.parseInt(sRadio.getSelectedItem().toString());
+                idRadio = sRadio.getSelectedItemPosition();
+                colorL=asignarColor(sColorL.getSelectedItemPosition());
+                idColorL = sColorL.getSelectedItemPosition();
+                colorF=asignarColor(sColorF.getSelectedItemPosition());
+                idColorF = sColorF.getSelectedItemPosition();
+                guardarPreferencias(brujula,centrar,zoom,radio,colorL, colorF, idRadio, idColorL , idColorF);
                 startActivity(main);
             }
         });
@@ -96,7 +97,6 @@ public class Preferencias extends Activity implements View.OnClickListener{
         Context context= getApplicationContext();
         Intent main = new Intent(Preferencias.this, MainActivity.class)
                 .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        guardarPreferencias(brujula,centrar,zoom,radio,colorL, colorF);
         startActivity(main);
     }
 
@@ -116,7 +116,7 @@ public class Preferencias extends Activity implements View.OnClickListener{
         return colorS;
     }
 
-    public void guardarPreferencias(boolean bruj, boolean centro, boolean zoo, int rango, int color, int  color2){
+    public void guardarPreferencias(boolean bruj, boolean centro, boolean zoo, int rango, int color, int  color2, int idradio, int idcolorL , int idcolorF){
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean("brujula",bruj);
         editor.putBoolean("centrar",centro);
@@ -124,6 +124,9 @@ public class Preferencias extends Activity implements View.OnClickListener{
         editor.putInt("radio",rango);
         editor.putInt("colorL",color);
         editor.putInt("colorF",color2);
+        editor.putInt("idRadio",idradio);
+        editor.putInt("idColorL",idcolorL);
+        editor.putInt("idColorF",idcolorF);
         editor.commit();
     }
 
@@ -131,15 +134,15 @@ public class Preferencias extends Activity implements View.OnClickListener{
         boolean central = sharedPreferences.getBoolean("centrar", true);
         boolean bruj = sharedPreferences.getBoolean("brujula", true);
         boolean zoo = sharedPreferences.getBoolean("zoom", true);
-        int rango = sharedPreferences.getInt("radio", 50);
-        int color = asignarColor(sharedPreferences.getInt("colorL",0));
-        int color2 = asignarColor(sharedPreferences.getInt("colorF",0));
-
+        int rango = sharedPreferences.getInt("idRadio", 0);
+        int color = sharedPreferences.getInt("idColorL",0);
+        int color2 = sharedPreferences.getInt("idColorF",0);
         spCentrar.setChecked(central);
         spBrujula.setChecked(bruj);
         spZoom.setChecked(zoo);
-
-
+        sRadio.setSelection(rango);
+        sColorL.setSelection(color);
+        sColorF.setSelection(color2);
     }
 
 }

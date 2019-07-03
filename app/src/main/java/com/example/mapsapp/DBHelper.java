@@ -24,7 +24,7 @@ public class DBHelper extends SQLiteOpenHelper{
 
         // información del a base de datos
         static final String DB_NAME = "DBMAPS";
-        static final int DB_VERSION = 4;
+        static final int DB_VERSION = 5;
 
         // Información de la base de datos
         private static final String CREATE_TABLE_CIRCULOS = "create table "

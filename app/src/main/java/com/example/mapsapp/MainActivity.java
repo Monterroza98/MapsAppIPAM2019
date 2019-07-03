@@ -22,6 +22,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -142,41 +143,47 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
 
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
-            public void onMapClick(LatLng latLng) {
-                mMap.addMarker(new MarkerOptions().position(latLng).title("Marcador"));
-                dbconeccion.insertarDatosMarcador("Marcador", latLng.longitude, latLng.latitude);
-                Log.d("s","Marcador\nnombre= marcador"+"\nLat= "+latLng.latitude+
-                        "\nLog= "+latLng.longitude);
-                Toast.makeText(MainActivity.this,"Coordenadas: \n"+
-                        "Latitud: " + latLng.latitude + "\n" +
-                        "Longitud:" + latLng.longitude,Toast.LENGTH_LONG).show();;
+            public void onMapClick(final LatLng latLng) {
 
+                AlertDialog.Builder constructor= new AlertDialog.Builder(MainActivity.this);
+                constructor.setTitle("Añadir Marcador").setMessage("Ingrese el nombre del marcador");
+                constructor.setCancelable(false);
 
+                final EditText input = new EditText(MainActivity.this);
+                LinearLayout.LayoutParams lp= new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+                input.setLayoutParams(lp);
+                constructor.setView(input);
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
-                builder.setTitle("Title");
-
-// Set up the input
-                final EditText input = new EditText(getApplicationContext());
-// Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
-                input.setInputType(InputType.TYPE_CLASS_TEXT);
-                builder.setView(input);
-
-// Set up the buttons
-                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                constructor.setPositiveButton("Guardar", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        nombre = input.getText().toString();
+                        String nombre= input.getText().toString();
+                        if(!nombre.trim().isEmpty()) {
+                            mMap.addMarker(new MarkerOptions().position(latLng).title(nombre));
+                            dbconeccion.insertarDatosMarcador(nombre, latLng.longitude, latLng.latitude);
+                            Log.d("s", "Marcador\nnombre= marcador" + "\nLat= " + latLng.latitude +
+                                    "\nLog= " + latLng.longitude);
+                            Toast.makeText(MainActivity.this, "Coordenadas: \n" +
+                                    "Latitud: " + latLng.latitude + "\n" +
+                                    "Longitud:" + latLng.longitude, Toast.LENGTH_LONG).show();
+
+                        }else{
+                            Toast.makeText(MainActivity.this, "Nombre vacío, no se guardara", Toast.LENGTH_SHORT).show();
+                        }
+
                     }
                 });
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                constructor.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
+
                     }
                 });
 
-                builder.show();
+                AlertDialog dialog= constructor.create();
+                dialog.show();
+
 
 
             }
@@ -287,7 +294,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
                 double longitud = cursor.getDouble(2);
                 double latitud = cursor.getDouble(3);
                 LatLng l= new LatLng(latitud, longitud);
-                mMap.addMarker(new MarkerOptions().position(l).title("Marcador").draggable(true));
+                mMap.addMarker(new MarkerOptions().position(l).title(nombre).draggable(true));
                 Log.d("s", "Marcador\ntitulo= "+nombre+"\nLong= "+longitud+"\nLat= "+latitud);
             } while(cursor.moveToNext());
         }else{

@@ -43,7 +43,7 @@
         android:layout_marginTop="25dp"
         android:layout_x="30dp"
         android:layout_y="240dp"
-        android:text="@string/centro"
+        android:text="@string/scroll"
         android:textSize="18dp">
 
     </TextView>

@@ -3,6 +3,7 @@
     <string name="brujula">Brujula</string>
     <string name="zoom">Zoom</string>
     <string name="centro">Centrar</string>
+    <string name="scroll">Scroll</string>
     <string name="opcion1">Preferencias del Mapa</string>
     <string name="opcion2">Preferencias del Circulo</string>
     <string name="tamano">Tamaño</string>

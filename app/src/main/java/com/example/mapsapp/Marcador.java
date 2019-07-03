@@ -3,10 +3,11 @@ package com.example.mapsapp;
 public class Marcador {
 
     private String titulo;
-    private Double latitud;
-    private Double longitud;
+    private double latitud;
+    private double longitud;
 
-    public Marcador (String titulo, Double latitud, Double longitud){
+
+    public Marcador (String titulo, double latitud, double longitud){
         this.titulo = titulo;
         this.latitud= latitud;
         this.longitud = longitud;
@@ -23,19 +24,19 @@ public class Marcador {
         this.titulo = titulo;
     }
 
-    public Double getLatitud() {
+    public double getLatitud() {
         return latitud;
     }
 
-    public void setLatitud(Double latitud) {
+    public void setLatitud(double latitud) {
         this.latitud = latitud;
     }
 
-    public Double getLongitud() {
+    public double getLongitud() {
         return longitud;
     }
 
-    public void setLongitud(Double longitud) {
+    public void setLongitud(double longitud) {
         this.longitud = longitud;
     }
 }

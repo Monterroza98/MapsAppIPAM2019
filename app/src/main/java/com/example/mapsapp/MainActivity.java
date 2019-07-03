@@ -237,7 +237,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         }
         mMap.getUiSettings().setZoomControlsEnabled(false);
         mMap.getUiSettings().setRotateGesturesEnabled(false);
-        mMap.getUiSettings().setScrollGesturesEnabled(false);
+        mMap.getUiSettings().setScrollGesturesEnabled(preferencias.getBoolean("scroll",true));
         mMap.getUiSettings().setZoomControlsEnabled(preferencias.getBoolean("zoom", true));
         mMap.getUiSettings().setCompassEnabled(preferencias.getBoolean("brujula", true));
         mMap.getUiSettings().setMapToolbarEnabled(true);

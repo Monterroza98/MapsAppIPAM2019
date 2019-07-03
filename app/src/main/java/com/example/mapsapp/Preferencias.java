@@ -119,7 +119,7 @@ public class Preferencias extends Activity implements View.OnClickListener{
     public void guardarPreferencias(boolean bruj, boolean centro, boolean zoo, int rango, int color, int  color2, int idradio, int idcolorL , int idcolorF){
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean("brujula",bruj);
-        editor.putBoolean("centrar",centro);
+        editor.putBoolean("scroll",centro);
         editor.putBoolean("zoom",zoo);
         editor.putInt("radio",rango);
         editor.putInt("colorL",color);
@@ -131,7 +131,7 @@ public class Preferencias extends Activity implements View.OnClickListener{
     }
 
     public void cargarPreferencias (){
-        boolean central = sharedPreferences.getBoolean("centrar", true);
+        boolean central = sharedPreferences.getBoolean("scroll", true);
         boolean bruj = sharedPreferences.getBoolean("brujula", true);
         boolean zoo = sharedPreferences.getBoolean("zoom", true);
         int rango = sharedPreferences.getInt("idRadio", 0);

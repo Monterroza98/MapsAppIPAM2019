@@ -1,6 +1,7 @@
 package com.example.mapsapp;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -9,13 +10,18 @@ import android.graphics.Color;
 import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -38,6 +44,8 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleMap mMap;
 
     SQLControlador dbconeccion;
+
+    private String nombre;
 
     final String[] tiposmapa=
             new String[]{"Normal","Satelite","Hibrido","Terreno"};
@@ -143,6 +151,34 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
                         "Latitud: " + latLng.latitude + "\n" +
                         "Longitud:" + latLng.longitude,Toast.LENGTH_LONG).show();;
 
+
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+                builder.setTitle("Title");
+
+// Set up the input
+                final EditText input = new EditText(getApplicationContext());
+// Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+                input.setInputType(InputType.TYPE_CLASS_TEXT);
+                builder.setView(input);
+
+// Set up the buttons
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        nombre = input.getText().toString();
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+                builder.show();
+
+
             }
         });
 
@@ -153,16 +189,16 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
             @Override
             public void onMapLongClick(LatLng latLng) {
+                CircleOptions circle = new CircleOptions();
+                circle.center(latLng);
+                circle.radius(radio);
+                circle.strokeColor(asignarColor(colorL));
+                circle.fillColor(asignarColor(colorF));
+                circle.strokeWidth(5);
+                mMap.addCircle(circle);
                 Toast.makeText(MainActivity.this,"Coordenadas: \n"+
                         "Latitud: " + latLng.latitude + "\n" +
                         "Longitud:" + latLng.longitude,Toast.LENGTH_LONG).show();
-                CircleOptions circleOptions = new CircleOptions();
-                circleOptions.center(latLng);
-                circleOptions.radius(radio);
-                circleOptions.strokeColor(colorL);
-                circleOptions.fillColor(colorF);
-                circleOptions.strokeWidth(5);
-                mMap.addCircle(circleOptions);
                 dbconeccion.insertarDatosCirculo(radio, colorL
                         , colorF, latLng.longitude
                         , latLng.latitude);
@@ -201,10 +237,10 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         }
         mMap.getUiSettings().setZoomControlsEnabled(false);
         mMap.getUiSettings().setRotateGesturesEnabled(false);
-        mMap.getUiSettings().setScrollGesturesEnabled(true);
+        mMap.getUiSettings().setScrollGesturesEnabled(false);
         mMap.getUiSettings().setZoomControlsEnabled(preferencias.getBoolean("zoom", true));
         mMap.getUiSettings().setCompassEnabled(preferencias.getBoolean("brujula", true));
-        mMap.getUiSettings().setMapToolbarEnabled(false);
+        mMap.getUiSettings().setMapToolbarEnabled(true);
     }
 
     public void guardarTipoMapas(int id){

@@ -144,8 +144,8 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         });
 
         final int radio = preferencias.getInt("radio", 50);
-        final int colorL = preferencias.getInt("colorL", 1);
-        final int colorF = preferencias.getInt("colorF", 1);
+        final int colorL = preferencias.getInt("colorL", Color.RED);
+        final int colorF = preferencias.getInt("colorF", Color.RED);
 
         mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
             @Override

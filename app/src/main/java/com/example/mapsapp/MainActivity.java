@@ -206,8 +206,8 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
 
     public void obtenerColores(){
         int radio = preferencias.getInt("radio", 50);
-        int colorL = preferencias.getInt("colorL", Color.RED);
-        int colorF = preferencias.getInt("colorF", Color.RED);
+        int colorL = preferencias.getInt("colorL", 0);
+        int colorF = preferencias.getInt("colorF", 0);
 
         Log.d("STATE", radio+"");
     }

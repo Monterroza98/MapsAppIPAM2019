@@ -82,7 +82,10 @@ public class Preferencias extends Activity implements View.OnClickListener{
                 radio=Integer.parseInt(sRadio.getSelectedItem().toString());
                 colorL=sColorL.getSelectedItemPosition();
                 colorF=sColorF.getSelectedItemPosition();
-                guardarPreferencias(brujula,centrar,zoom,radio, colorL , colorF);
+                idRadio = sRadio.getSelectedItemPosition();
+                idColorL = colorL;
+                idColorF = colorF;
+                guardarPreferencias(brujula,centrar,zoom,radio, colorL , colorF,idRadio,idColorL,idColorF);
                 startActivity(main);
             }
         });
@@ -113,7 +116,7 @@ public class Preferencias extends Activity implements View.OnClickListener{
         return colorS;
     }
 
-    public void guardarPreferencias(boolean bruj, boolean centro, boolean zoo, int rango, int color, int  color2){
+    public void guardarPreferencias(boolean bruj, boolean centro, boolean zoo, int rango, int color, int  color2, int idradio, int idcolorL , int idcolorF){
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean("brujula",bruj);
         editor.putBoolean("centrar",centro);
@@ -121,6 +124,9 @@ public class Preferencias extends Activity implements View.OnClickListener{
         editor.putInt("radio",rango);
         editor.putInt("colorL",color);
         editor.putInt("colorF",color2);
+        editor.putInt("idRadio", idradio);
+        editor.putInt("idColorL", idcolorL);
+        editor.putInt("idColorF", idcolorF);
         editor.commit();
     }
 

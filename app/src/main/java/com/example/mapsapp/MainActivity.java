@@ -66,12 +66,12 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
                         android.R.layout.select_dialog_singlechoice, tiposmapa);
 
 
-        //borrar
-        //obtenerColores();
-
-
         cmbTiposMapa = (Spinner)findViewById(R.id.tipoMapa);
         cmbTiposMapa .setAdapter(adaptador);
+
+
+
+
 
         Button btnPreferencias=findViewById(R.id.btnConfiguracion);
         btnPreferencias.setOnClickListener(new View.OnClickListener() {
@@ -83,8 +83,10 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         });
 
         cmbTiposMapa.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                guardarTipoMapas(i);
                 switch (i)
                 {
                     case 0:
@@ -114,6 +116,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        cmbTiposMapa.setSelection(preferencias.getInt("mapa", 0));
 
         mMap.setMinZoomPreference(10);
         mMap.setMaxZoomPreference(18);
@@ -204,12 +207,10 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.getUiSettings().setMapToolbarEnabled(false);
     }
 
-    public void obtenerColores(){
-        int radio = preferencias.getInt("radio", 50);
-        int colorL = preferencias.getInt("colorL", 0);
-        int colorF = preferencias.getInt("colorF", 0);
-
-        Log.d("STATE", radio+"");
+    public void guardarTipoMapas(int id){
+        SharedPreferences.Editor editor = preferencias.edit();
+        editor.putInt("mapa", id);
+        editor.commit();
     }
 
     public void llenarCirculos(){
